@@ -13,7 +13,7 @@ FROM base AS serve
 RUN npm install --global firebase-tools
 RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=bind,source=package-lock.json,target=package-lock.json \
-    --mount=type=cache,target=/root/.npm \
+    
     npm ci --include=dev
 COPY . .
 CMD npm run serve
@@ -21,7 +21,7 @@ CMD npm run serve
 FROM base AS production
 RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=bind,source=package-lock.json,target=package-lock.json \
-    --mount=type=cache,id=s/root/.npm \
+    
     npm ci --omit=dev
 COPY . .
 CMD npm start
